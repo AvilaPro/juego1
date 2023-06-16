@@ -1,3 +1,5 @@
+// variables para dimensionar y controlar
+// 1.1 toma de tamaños de la pantalla
 var anchoPantalla = screen.width * 0.7;
 var altoPantalla = screen.height * 0.8;
 
@@ -10,6 +12,8 @@ var posicionBolaVert = altoPantalla / 2;
 var contador = 0;
 
 var velocidad = 0;
+
+  // Beta: Se crea la clase con el metodo Constructor, preload, create
 
 class Example extends Phaser.Scene
 {
@@ -85,6 +89,7 @@ class Example extends Phaser.Scene
       }
     }
 
+    // 12 Metodo para sumar puntos
     sumarPuntos(){
       contador++;
       console.log('contador: ', contador);
