@@ -48,13 +48,15 @@ class Example extends Phaser.Scene
       //5- hacer aparecer la bola en el juego
       this.ball = this.physics.add.image(posicionBolaHoriz, posicionBolaVert, 'bola');
 
+      
+
       //10- Ademas hay que hacer que determinados elementos puedan colisionar con los bordes del mundo
       this.ball.setCollideWorldBounds(true);
 
       //8- Crear una velocidad y un direccionamiento aleatorio
       velocidad = 100 * Phaser.Math.Between(1.2, 2);
       if(Phaser.Math.Between(0, 10) > 5){
-        velocidad = 0- velocidad;
+        velocidad = 0 - velocidad;
       }
       this.ball.setVelocity(velocidad, 10);
 
@@ -65,6 +67,22 @@ class Example extends Phaser.Scene
       this.ball.setBounce(1);
 
 
+    }
+
+    // 13 paso por parametros los objetos que colisionan para que la bola cambie de direccion de rebote segun el lugar donde impacte, ademas de sacar el metodo del update()
+    sumarPuntos(ball, platform){
+      contador++;
+      console.log('contador: ', contador);
+      //agregar el valor de contador a un elemento html
+      document.getElementById('contador').innerHTML = contador;
+      //aqui lo del calculo de donde pega con la plataforma
+      let impactoRelativo = ball.x - platform.x;
+      if (impactoRelativo < 0.1 && impactoRelativo > -0.1) {
+        ball.setVelocityY(Phaser.Math.Between(-10, 10))
+      }else{
+        ball.setVelocityY(-1 * Math.abs(10 * impactoRelativo) )
+      }
+      console.log(impactoRelativo);
     }
 
     //4-Metodo que monitorea constantemente cualquier cambio en el juego
@@ -90,12 +108,14 @@ class Example extends Phaser.Scene
     }
 
     // 12 Metodo para sumar puntos
-    sumarPuntos(){
-      contador++;
-      console.log('contador: ', contador);
-      //agregar el valor de contador a un elemento html
-      document.getElementById('contador').innerHTML = contador;
-    }
+    // sumarPuntos(){
+    //   contador++;
+    //   console.log('contador: ', contador);
+    //   //agregar el valor de contador a un elemento html
+    //   document.getElementById('contador').innerHTML = contador;
+    // }
+
+    
 }
 
 
@@ -108,6 +128,7 @@ const config = {
   physics: {
       default: 'arcade',
       arcade: {
+// 14 Quitar la gravedad
           gravity: { y: 200 }
       }
   },
